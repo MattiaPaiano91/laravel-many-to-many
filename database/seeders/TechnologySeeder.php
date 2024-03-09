@@ -21,17 +21,16 @@ class TechnologySeeder extends Seeder
         Schema::enableForeignKeyConstraints();
 
         $allTechnologies = [
-            'News',
-            'Updates',
-            'Release',
-            'Technology',
-            'Web',
-            'Software',
-            'Hardware',
-            'Blockchain',
-            'AI',
-            'Machine Learning',
-            'ChatGPT',
+            'HTML',
+            'CSS',
+            'Javascript',
+            'Vue',
+            'Laravel',
+            'SASS',
+            'C++',
+            'C#',
+            'React',
+            'Typecript',
         ];
 
         foreach ($allTechnologies as $singleTechnology) {

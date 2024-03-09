@@ -28,7 +28,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($technologies as $tecnology)
+                            @foreach ($technologies as $technology)
                                 <tr>
                                     <th scope="row">{{ $technology->id }}</th>
                                     <td>{{ $technology->title }}</td>
