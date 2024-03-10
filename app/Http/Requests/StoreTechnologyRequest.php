@@ -11,7 +11,7 @@ class StoreTechnologyRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class StoreTechnologyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => 'required|max:200',
+            'description'=> 'max:1024',
+            'slug'=> 'max:200',
         ];
     }
 }

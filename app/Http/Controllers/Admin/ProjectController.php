@@ -4,11 +4,15 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Project;
 use App\Models\Type;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Exception;
 // Helpers
 use Illuminate\Support\Str;
+
+//facades
+use Illuminate\Support\Facades\Auth;
 
 // Form Requests
 use App\Http\Requests\StoreProjectRequest;
@@ -23,8 +27,8 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = Project::with(['type', 'technologies'])->get();
-
-            return view('admin.projects.index', compact('projects'));
+        $userName = Auth::check() ? Auth::user()->name : null;
+            return view('admin.projects.index', compact('projects','userName'));
     }
         
 
@@ -63,8 +67,9 @@ class ProjectController extends Controller
     public function show(string $slug)
     {
         $project = Project::where('slug', $slug)->firstOrFail();
+        $userName = Auth::check() ? Auth::user()->name : null;
 
-        return view('admin.projects.show', compact('project'));
+        return view('admin.projects.show', compact('project','userName'));
     }
 
     /**
@@ -75,6 +80,7 @@ class ProjectController extends Controller
         $types = Type::all();
         $technologies = Technology::all();
         $project = Project::where('slug', $slug)->firstOrFail();
+        
 
         return view('admin.projects.edit', compact('project', 'types', 'technologies'));
 
@@ -90,13 +96,13 @@ class ProjectController extends Controller
         $slug = Str::slug($projectData['title']);
         $projectData['slug'] = $slug;
         $project->updateOrFail($projectData);
+
         if(isset($projectData['technologies'])){
             $project->technologies()->sync($projectData['technologies']);
         }
         else{
             $project->technologies()->detach();
         }
-
         return redirect()->route('admin.projects.show', ['project' => $project->slug]);
     }
 

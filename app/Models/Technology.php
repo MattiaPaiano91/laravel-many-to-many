@@ -10,7 +10,8 @@ class Technology extends Model
     use HasFactory;
     protected $fillable = [
         'title',
-        'slug'
+        'slug',
+        'description'
     ];
     public function project()
     {

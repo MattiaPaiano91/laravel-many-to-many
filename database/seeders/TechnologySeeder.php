@@ -30,7 +30,7 @@ class TechnologySeeder extends Seeder
             'C++',
             'C#',
             'React',
-            'Typecript',
+            'Typescript',
         ];
 
         foreach ($allTechnologies as $singleTechnology) {

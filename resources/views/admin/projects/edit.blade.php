@@ -4,15 +4,15 @@
 
 @section('main-content')
   <div>
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul class="mb-0">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul class="mb-0">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <form action="{{ route('admin.projects.update', ['project' => $project->slug]) }}" method="POST">
             @csrf
             @method('PUT')
@@ -28,10 +28,11 @@
                         {{ old('type_id') == null ? 'selected' : '' }}>
                         Seleziona una tipologia di Progetto
                     </option>
+
                     @foreach ($types as $type)
                         <option
                             value="{{ $type->id }}"
-                            {{ old('type_id') == $type->id ? 'selected' : '' }}>
+                            {{ $project->type_id == $type->id ? 'selected' : '' }}>
                             {{ $type->name }}
                         </option>
                     @endforeach

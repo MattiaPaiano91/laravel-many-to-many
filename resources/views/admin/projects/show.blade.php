@@ -8,7 +8,9 @@
             <div class="card">
                 <div class="card-body">
                     <h1 class="text-center text-success">
-                        Sei loggato!
+                         @if(Auth::check())
+                            <p>Benvenuto, {{ Auth::user()->name }}</p>
+                        @endif
                     </h1>
                     <br>
                     Pagina Index
@@ -24,6 +26,7 @@
                             <th scope="col">Type</th>
                             <th scope="col">Technologies</th>
                             <th scope="col">Created at</th>
+                            <th scope="col">Time</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -37,7 +40,8 @@
                                 <span class="badge text-bg-primary">{{ $technology->title }}</span>
                                 @endforeach
                                 </td>   
-                            <td>{{ $project->created_at }}</td>
+                            <td>{{ $project->created_at->format('Y-m-d') }}</td>
+                            <td>{{ $project->created_at->format('H:i:s') }}</td>
                         </tr>
                     </tbody>
                 </table>
