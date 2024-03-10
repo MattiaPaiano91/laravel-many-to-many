@@ -11,7 +11,7 @@
                         Sei loggato!
                     </h1>
                     <h2 class="text-center my-2">Aggiungi un nuovo progetto</h2>
-                    @if ($errors->any())
+                    {{-- @if ($errors->any())
                         <div class="alert alert-danger">
                             <ul class="mb-0">
                                 @foreach ($errors->all() as $error)
@@ -19,7 +19,7 @@
                                 @endforeach
                             </ul>
                         </div>
-                    @endif
+                    @endif --}}
                 </div>
             </div>
             <div>
@@ -35,12 +35,12 @@
                         @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="type_id" class="form-label">Type</label>
+                        <label for="type_id" class="form-label text-white">Type*</label>
                         <select name="type_id" id="type_id" class="form-select">
                             <option
                                 value=""
                                 {{ old('type_id') == null ? 'selected' : '' }}>
-                                Seleziona un type...
+                                Seleziona una tipologia di progetto
                             </option>
                             @foreach ($types as $type)
                                 <option
@@ -51,6 +51,20 @@
                             @endforeach
                         </select>
                     </div>
+                    
+                    <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                        @foreach ( $technologies as $technology )
+                        <input 
+                        {{ in_array($technology->id, old('technologies',[])) ? 'checked' : ''}} 
+                        name="technologies[]" 
+                        type="checkbox" 
+                        class="btn-check" 
+                        id="tag-{{ $technology->id }}" 
+                        value="{{ $technology->id }}">
+                        <label  class="btn btn-outline-dark" for="tag-{{ $technology->id }}">{{ $technology->title }}</label>
+                        @endforeach
+                    </div>
+
                     <div class="my-3">
                         <label for="description" class="form-label text-white">Descrizione*</label>
                         <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" rows="3" placeholder="Aggiungi una descrizione" maxlength="1024" required>{{ old('description') }}</textarea>

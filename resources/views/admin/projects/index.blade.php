@@ -33,10 +33,10 @@
                                 <th scope="row">{{ $project->id }}</th>
                                 <td>{{ $project->title }}</td>
                                 <td>{{ $project->slug }}</td>
-                                <td>{{ $project->type->name }}</td>
+                                <td>{{ optional($project->type)->name ?? 'N/D' }}</td>
                                 <td>
                                     @forelse($project->technologies as $technologies)
-                                        <span class="badge text-bg-primary">Primary</span>
+                                        <span class="badge text-bg-primary">{{ $technologies->title }}</span>
                                     @empty
                                         <p>N/a</p>
                                     @endforelse

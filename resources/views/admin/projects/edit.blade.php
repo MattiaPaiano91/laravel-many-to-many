@@ -21,26 +21,42 @@
                 <input value="{{ $project->title }}" type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" placeholder="Inserisci il titolo..." maxlength="200" required>
             </div>
             <div class="mb-3">
-                        <label for="type_id" class="form-label">Type</label>
-                        <select name="type_id" id="type_id" class="form-select">
-                            <option
-                                value=""
-                                {{ old('type_id') == null ? 'selected' : '' }}>
-                                Seleziona un type...
-                            </option>
-                            @foreach ($types as $type)
-                                <option
-                                    value="{{ $type->id }}"
-                                    {{ old('type_id') == $type->id ? 'selected' : '' }}>
-                                    {{ $type->name }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
+                <label for="type_id" class="form-label">Type</label>
+                <select name="type_id" id="type_id" class="form-select">
+                    <option
+                        value=""
+                        {{ old('type_id') == null ? 'selected' : '' }}>
+                        Seleziona una tipologia di Progetto
+                    </option>
+                    @foreach ($types as $type)
+                        <option
+                            value="{{ $type->id }}"
+                            {{ old('type_id') == $type->id ? 'selected' : '' }}>
+                            {{ $type->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                @foreach ( $technologies as $technology )
+                <input
+                @if ($errors->any())
+                    {{ in_array($technology->id, old('technologies',[])) ? 'checked' : ''}} 
+                @else
+                    {{ $project->technologies->contains($technology->id) ? 'checked' : '' }}
+                @endif
+                name="technologies[]" 
+                type="checkbox" 
+                class="btn-check" 
+                id="tag-{{ $technology->id }}" 
+                value="{{ $technology->id }}">
+                <label class="btn btn-outline-dark" for="tag-{{ $technology->id }}">{{ $technology->title }}</label>
+                @endforeach
+            </div>
             <div class="my-3">
                 <label for="description" class="form-label text-white">Descrizione*</label>
                 <textarea  class="form-control @error('description') is-invalid @enderror" id="description" name="description" rows="3" placeholder="Aggiungi una descrizione" maxlength="1024" required>
-                {{ $project->description }}
+                    {{ $project->description }}
                 </textarea>
             </div>
             <div class="my-3">
